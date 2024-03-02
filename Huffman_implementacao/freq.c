@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "freq.h"
 
-typedef unsigned char uchar;
-typedef unsigned long long int ulli;
-
-/*Função que cria um vetor de frequência, o calloc foi utlizado para inicializar o vetor com 0
-sem a necessidade de um for para inicializar o vetor nem a necessidade da chamada da funão memset*/
 ulli *criar_nova_freq(){
-    ulli *freq = calloc(256,sizeof(unsigned long long int));
+    ulli *freq = calloc(256,sizeof(ulli));
     return freq;
 }
 
@@ -27,6 +21,11 @@ ulli *contar_frequencia(char *nome_arquivo){
     return freq_arr;
 }
 
+heap *criar_heap_freq(ulli *freq){
+    heap *hp = criar_heap();
+    for(ulli i = 0; i < 256; i++){
+        if(freq[i]) push_heap(hp,(void*)i,freq[i]);
+    }
+    return hp;
+}
 
-//FALTA A ESCREVER A PARTE DA HEAP E FAZER A INTEGRAÇÃO DA HEAP COM O ARRAY DE FREQUENCIA
- 
