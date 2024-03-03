@@ -23,9 +23,27 @@ ulli *contar_frequencia(char *nome_arquivo){
 
 heap *criar_heap_freq(ulli *freq){
     heap *hp = criar_heap();
-    for(ulli i = 0; i < 256; i++){
-        if(freq[i]) push_heap(hp,(void*)i,freq[i]);
+    for(int i = 0; i < 256; i++){
+        if(freq[i]){
+            unsigned char *byte = (unsigned char*)malloc(sizeof(unsigned char));
+            *byte = i;
+            push_heap(hp,byte,freq[i]);
+        }
     }
     return hp;
+}
+
+ 
+int main(){
+    char *nome_arquivo = (char*)malloc(100*sizeof(char));
+    printf("Digite o nome do arquivo: ");
+    scanf("%s",nome_arquivo);
+    ulli *freq = contar_frequencia(nome_arquivo);
+    heap *hp = criar_heap_freq(freq);
+    if (check_heap(hp)) {
+    printf("A propriedade da heap e atendida.\n");
+    print_heap(hp);
+    }
+    free_heap(hp);
 }
 

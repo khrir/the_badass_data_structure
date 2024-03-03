@@ -10,9 +10,9 @@ typedef unsigned long long int ulli;
 
 /*Função que cria um vetor de frequência, o calloc foi utlizado para inicializar o vetor com 0
 sem a necessidade de um for para inicializar o vetor nem a necessidade da chamada da funão memset*/
-int *criar_nova_freq();
+ulli *criar_nova_freq();
 
 //Função que conta a frequência de cada byte no arquivo
-int *contar_frequencia(char *nome_arquivo);
+ulli *contar_frequencia(char *nome_arquivo);
 
 #endif
