@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_HP_SIZE 100
+#define MAX_HP_SIZE 256
 typedef unsigned long long int ulli;
+typedef unsigned char uchar;
 
 typedef struct prio_hp_node{
     void *item;
@@ -55,8 +56,8 @@ void push_heap(heap *hp, void *item, ulli prioridade){
     hp->size++;
     hp->arr[hp->size] = node;
     ulli i = hp->size;
-    while (i > 1 && hp->arr[i]->prioridade < hp->arr[i / 2]->prioridade){
-        swap(&hp->arr[i], &hp->arr[i / 2]);
+    while (i > 1 && hp->arr[i/2]->prioridade > hp->arr[i]->prioridade){
+        swap(&hp->arr[i], &hp->arr[i/2]);
         i /= 2;
     }
 }
@@ -74,3 +75,37 @@ prio_hp_node *pop_heap(heap *hp){
     min_heapify(hp, 1);
     return node;
 }
+
+void print_binary(uchar byte){
+    for(int i = 7; i >= 0; i--){
+        printf("%d",(byte >> i) & 1);
+    }
+}
+
+void print_heap(heap *hp){
+    for (ulli i = 1; i <= hp->size; i++) {
+        unsigned char byte = *((unsigned char*)hp->arr[i]->item);
+        printf("Byte: ");
+        print_binary(byte);
+        printf(", Index: %llu, Prioridade: %llu\n", i, hp->arr[i]->prioridade);
+    }
+    printf("\n");
+}
+void free_heap(heap *hp){
+    for (ulli i = 1; i <= hp->size; i++) free(hp->arr[i]);
+    free(hp);
+}
+
+int check_heap(heap *hp){
+    for (ulli i = 1; i <= hp->size / 2; i++) {
+        ulli left = 2 * i;
+        ulli right = 2 * i + 1;
+        if ((left <= hp->size && hp->arr[i]->prioridade > hp->arr[left]->prioridade) ||
+            (right <= hp->size && hp->arr[i]->prioridade > hp->arr[right]->prioridade)) {
+            printf("A propriedade da heap nao e atendida no indice %llu.\n", i);
+            return 0;
+        }
+    }
+    return 1;
+}
+
