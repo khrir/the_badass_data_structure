@@ -1,7 +1,7 @@
 #ifndef FILA_PRIO_H
 #define FILA_PRIO_H
 
-#include "../lista/lista.h"
+#include "../util/util.h"
 
 typedef struct Node_prio{
     int frequencia;

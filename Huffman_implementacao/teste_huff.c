@@ -1,5 +1,4 @@
-#include "huff/huff.h"
-
+#include "mapa/mapa.h"
 
 int main(){
 
@@ -13,6 +12,8 @@ int main(){
         if(freq[i] != 0) enfileirar(fila, i, freq[i]);
     }
     criar_huff_tree(fila);
-    printar_huff_tree(fila->head);    
+    huff_dict *dict = criar_huff_dict();
+    gerar_mapa(fila->head, dict, 0);
+    imprimir_caminho(fila->head, dict->path_bits, 0);
     return 0;
 }
