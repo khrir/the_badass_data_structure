@@ -18,7 +18,7 @@ void enfileirar(Fila_prio *fila, uchar byte, int frequencia){
     }
     else{
         Node_prio *current = fila->head;
-        while(current->next != NULL && current->next->frequencia <= frequencia) current = current->next;
+        while(current->next != NULL && current->next->frequencia < frequencia) current = current->next;
         new_node->next = current->next;
         current->next = new_node;
     }

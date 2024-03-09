@@ -12,4 +12,6 @@ typedef unsigned char uchar;
 // printa um byte em binario
 void print_byte(uchar byte);
 
+
+
 #endif
