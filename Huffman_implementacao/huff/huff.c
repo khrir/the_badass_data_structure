@@ -30,7 +30,7 @@ void altura_huff_tree(Node_prio *node, int *altura){
     if(node){
         *altura += 1;
         if(encontrar_folhas(node) && (node->byte == '*' || node->byte == '\\'))
-            altura += 1;
+            *altura += 1;
     }
     altura_huff_tree(node->left, altura);
 }
