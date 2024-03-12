@@ -27,4 +27,8 @@ void enfila_huff(Fila_prio *fila, Node_prio *node);
 //desenfileira um no da fila de prioridade
 Node_prio *desenfileirar(Fila_prio *fila);
 
+void imprimir_fila(Fila_prio *fila);
+
+void free_fila(Fila_prio *fila);
+
 #endif
