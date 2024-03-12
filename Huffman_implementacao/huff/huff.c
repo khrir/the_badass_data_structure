@@ -22,30 +22,27 @@ void criar_huff_tree(Fila_prio *fila){
     }
 }
 
+void tamanho_huff_tree(Node_prio *node, int *tmn){
+    if(node){
+        *tmn += 1;
+        tamanho_huff_tree(node->left, tmn);
+        tamanho_huff_tree(node->right, tmn);
+    }
+}
+
 int encontrar_folhas(Node_prio *node){
     return(node->left == NULL && node->right == NULL);
 }
-
-void altura_huff_tree(Node_prio *node, int *altura){
-    if(node){
-        *altura += 1;
-        if(encontrar_folhas(node) && (node->byte == '*' || node->byte == '\\'))
-            *altura += 1;
-    }
-    altura_huff_tree(node->left, altura);
-}
-
 // "a" para append, significa que o arquivo será aberto para escrita, mas o conteúdo atual não será apagado
 // ou seja o conteúdo será adicionado ao final do arquivo
 void salvar_huff_file(Node_prio *node, char *nome_arquivo){
     if(node){
         FILE *arquivo = fopen(nome_arquivo, "a"); 
-        if((node->byte == '*' || node->byte == '\\') && encontrar_folhas(node))
-            fputc('\\', arquivo);
-        
-        fputc(node->byte, arquivo);
+        if((node->byte == '*' || node->byte == '\\') && encontrar_folhas(node)){
+            fprintf(arquivo, "\\%c", node->byte);
+        }
+        else fprintf(arquivo, "%c", node->byte);
         fclose(arquivo);
-
         salvar_huff_file(node->left, nome_arquivo); 
         salvar_huff_file(node->right, nome_arquivo);       
     }
@@ -87,10 +84,12 @@ void free_huff_tree(Node_prio *node){
     }
 }
 
-huff_dict *criar_huff_dict(){
-    huff_dict *new_dict = (huff_dict*)malloc(sizeof(huff_dict));
-    memset(new_dict->tmn, 0, 256*sizeof(int));
-    memset(new_dict->path_bits, 0, 256*sizeof(int));
-    return new_dict;
-}
-
+ 
+void pre_order(Node_prio *node, char *nome_arquivo){
+    if(node){
+        FILE *arquivo = fopen(nome_arquivo, "a");
+        fprintf(arquivo, "%c", node->byte);
+        pre_order(node->left, nome_arquivo);
+        pre_order(node->right, nome_arquivo);
+    }
+}   

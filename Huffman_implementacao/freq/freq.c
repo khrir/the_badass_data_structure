@@ -13,8 +13,7 @@ int *contar_freq(char *nome_arquivo){
     }
     int *freq_arr = criar_freq();
     uchar byte;
-
-    while(fscanf(arquivo, "%c", &byte) != EOF) freq_arr[byte]++;
+    while(fread(&byte, sizeof(uchar), 1, arquivo) > 0) freq_arr[byte]++;
     fclose(arquivo);
     return freq_arr;
 }

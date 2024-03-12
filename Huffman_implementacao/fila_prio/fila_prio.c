@@ -44,3 +44,21 @@ Node_prio *desenfileirar(Fila_prio *fila){
     aux->next = NULL;
     return aux;
 }
+
+void imprimir_fila(Fila_prio *fila){
+    Node_prio *current = fila->head;
+    while(current != NULL){
+        printf("Byte: %c, Frequencia: %d\n", current->byte, current->frequencia);
+        current = current->next;
+    }
+}
+
+void free_fila(Fila_prio *fila){
+    Node_prio *current = fila->head;
+    while(current != NULL){
+        Node_prio *aux = current;
+        current = current->next;
+        free(aux);
+    }
+    free(fila);
+}
