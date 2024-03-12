@@ -8,10 +8,16 @@
 #include <math.h>
 
 typedef unsigned char uchar;
+typedef unsigned long long int ulli;
 
-// printa um byte em binario
-void print_byte(uchar byte);
+// retorna o tamanho do arquivo
+int tmn_arquivo(char *nome_arquivo);
 
+// retorna uma string digitada pelo usuario
+char *input();
+
+// agrupa os bits em bytes e salva no arquivo
+void agrupar_em_bytes_e_salvar(char *nome_arquivo);
 
 
 #endif
