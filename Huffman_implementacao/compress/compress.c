@@ -4,15 +4,18 @@ void comprimir(char *nome_arquivo){
     int tmn_arq_inic = tmn_arquivo(nome_arquivo);
 
     int *freq = criar_freq();
+    //retirar essa função
     freq = contar_freq(nome_arquivo);
     Fila_prio *fila = criar_fila();
     for(int i = 0; i < 256; i++){
         if(freq[i] != 0)
-            enfileirar(fila, i, freq[i]);
+            enfileirar(fila, (uchar)i, freq[i]);
     }
     criar_huff_tree(fila);
-    int tamanho_arvore = 0;
+    ulli tamanho_arvore = 0;
     tamanho_huff_tree(fila->head, &tamanho_arvore);
+    puts("");
+    puts("Tamanho da arvore calculado!");
     escrv_bytes_cod(nome_arquivo, fila->head);
     agrupar_em_bytes_e_salvar("caminho_bytes.txt");
 
@@ -23,10 +26,9 @@ void comprimir(char *nome_arquivo){
     FILE *arquivo_compress = fopen("entradaimt.png.sccp", "r");
     int tmn_arq_final = tmn_arquivo("entradaimt.png.sccp");
     fclose(arquivo_compress);
-    printf("Tamanho do arquivo original: %d bytes\n", tmn_arq_inic);
-    printf("Tamanho do arquivo comprimido: %d bytes\n", tmn_arq_final);
-    
+    puts("");
 
+    
     free(freq);
     free(fila);
 }

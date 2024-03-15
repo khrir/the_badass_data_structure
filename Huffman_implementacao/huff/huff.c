@@ -22,7 +22,7 @@ void criar_huff_tree(Fila_prio *fila){
     }
 }
 
-void tamanho_huff_tree(Node_prio *node, int *tmn){
+void tamanho_huff_tree(Node_prio *node, ulli *tmn){
     if(node){
         *tmn += 1;
         tamanho_huff_tree(node->left, tmn);
@@ -48,31 +48,24 @@ void salvar_huff_file(Node_prio *node, char *nome_arquivo){
     }
 }
 
-Node_prio *contruir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, int *altura_tree){
-    printf("Current tree height: %d\n", *altura_tree);
-    if(*altura_tree > 0){
+Node_prio *construir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, ulli *tmn_arvore){
+    if(*tmn_arvore > 0){
         uchar byte = fgetc(arquivo);
-        printf("Read byte: %c\n", byte);
-        *altura_tree -= 1;
+        *tmn_arvore -= 1;
 
         if(byte == '*'){
-            puts("Byte is '*', creating internal node");
             huff_tree = novo_huff_node('*', 0, NULL, NULL);
-            huff_tree->left = contruir_huff_from_file(arquivo, huff_tree->left, altura_tree);
-            huff_tree->right = contruir_huff_from_file(arquivo, huff_tree->right, altura_tree);
+            huff_tree->left = construir_huff_from_file(arquivo, huff_tree->left, tmn_arvore);
+            huff_tree->right = construir_huff_from_file(arquivo, huff_tree->right, tmn_arvore);
         }
         else{
-            puts("Byte is not '*', creating leaf node");
             if(byte == '\\'){
-                puts("Byte is '\\', reading next byte");
                 byte = fgetc(arquivo);
-                printf("Next byte: %c\n", byte);
-                *altura_tree -= 1;
+                *tmn_arvore -= 1;
             }
             huff_tree = novo_huff_node(byte, 0, NULL, NULL);
         }
     }
-    puts("Finished building tree at this level");
     return huff_tree;
 }
 
