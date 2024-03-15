@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <windows.h>
 
 typedef unsigned char uchar;
 typedef unsigned long long int ulli;
@@ -19,5 +20,11 @@ char *input();
 // agrupa os bits em bytes e salva no arquivo
 void agrupar_em_bytes_e_salvar(char *nome_arquivo);
 
+// limpa a tela do terminal
+void limpar_tela();
+
+void print_art1();
+
+void print_art2();
 
 #endif

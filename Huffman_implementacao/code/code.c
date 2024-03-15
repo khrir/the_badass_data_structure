@@ -70,7 +70,6 @@ void salvar_no_arquivo(char *nome_arquivo, int tamanho_arvore, Fila_prio *fila){
     
     FILE *arq_codificado = fopen("bytes_code.txt", "rb");
     int tmn_lixo = calc_lixo("bytes_code.txt");
-    printf("Lixo: %d\n", tmn_lixo);
     puts("Lixo calculado!");
     fclose(arq_codificado);
 
