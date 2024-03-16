@@ -8,16 +8,16 @@ Node_lista *novo_Node_lista(Node_lista *node, int item){
 }
 
 Node_lista *remove_Node_lista(Node_lista *node){
-    Node_lista *aux = node->next;
-    node = node->next;
-    free(aux);
+    if (node == NULL) return NULL;
+    Node_lista *next_node = node->next;
+    free(node);
+    return next_node;
 }
 
 void escrv_lista_bin(FILE *arquivo, Node_lista *node){
     if(node){
         escrv_lista_bin(arquivo, node->next);
         fprintf(arquivo, "%d", node->item);
-        fflush(arquivo);
     }
     return;
 }
@@ -47,7 +47,7 @@ void escrv_bytes_cod(char *nome_arquivo, Node_prio *fila){
 }
 
 int calc_lixo(char *nome_arquivo){
-    FILE *arq = fopen(nome_arquivo, "r");
+    FILE *arq = fopen(nome_arquivo, "rb");
     ulli bits = 0;
     while(fgetc(arq) != EOF) bits++;
     fclose(arq);

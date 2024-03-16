@@ -33,8 +33,7 @@ void tamanho_huff_tree(Node_prio *node, ulli *tmn){
 int encontrar_folhas(Node_prio *node){
     return(node->left == NULL && node->right == NULL);
 }
-// "a" para append, significa que o arquivo será aberto para escrita, mas o conteúdo atual não será apagado
-// ou seja o conteúdo será adicionado ao final do arquivo
+// abrir e fecha so uma vez o file 
 void salvar_huff_file(Node_prio *node, char *nome_arquivo){
     if(node){
         FILE *arquivo = fopen(nome_arquivo, "a"); 
