@@ -21,6 +21,19 @@ ulli *contar_frequencia(char *nome_arquivo){
     return freq_arr;
 }
 
+ulli *contar_frequencia_from_file(FILE *arquivo) {
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return NULL;
+    }
+
+    ulli *freq_arr = criar_nova_freq();
+    uchar byte;
+    //Lê o arquivo byte a byte
+    while(fscanf(arquivo,"%c",&byte) != EOF) freq_arr[byte]++;
+    return freq_arr;
+}
+
 heap *criar_heap_freq(ulli *freq){
     heap *hp = criar_heap();
     for(int i = 0; i < 256; i++){
@@ -34,7 +47,7 @@ heap *criar_heap_freq(ulli *freq){
 }
 
  
-int main(){
+int freq(){
     char *nome_arquivo = (char*)malloc(100*sizeof(char));
     printf("Digite o nome do arquivo: ");
     scanf("%s",nome_arquivo);
@@ -45,5 +58,6 @@ int main(){
     print_heap(hp);
     }
     free_heap(hp);
+    return 1;
 }
 

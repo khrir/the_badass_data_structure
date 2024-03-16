@@ -14,5 +14,6 @@ ulli *criar_nova_freq();
 
 //Função que conta a frequência de cada byte no arquivo
 ulli *contar_frequencia(char *nome_arquivo);
+ulli *contar_frequencia_from_file(FILE *arquivo);
 
 #endif

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "CUnit/Basic.h"
+#include "../Huffman_implementacao/freq.h"
 
 /* Pointer to the file used by the tests. */
 static FILE* temp_file = NULL;
@@ -34,35 +35,18 @@ int clean_suite1(void)
    }
 }
 
-/* Simple test of fprintf().
- * Writes test data to the temporary file and checks
- * whether the expected number of bytes were written.
- */
-void testFPRINTF(void)
-{
-   int i1 = 10;
-
-   if (NULL != temp_file) {
-      CU_ASSERT(0 == fprintf(temp_file, ""));
-      CU_ASSERT(2 == fprintf(temp_file, "Q\n"));
-      CU_ASSERT(7 == fprintf(temp_file, "i1 = %d", i1));
-   }
+void test_criar_nova_freq(void){
+   ulli *freq = criar_nova_freq();
+   CU_ASSERT(freq[0] == 0);
+   CU_ASSERT(freq[255] == 0);
 }
 
-/* Simple test of fread().
- * Reads the data previously written by testFPRINTF()
- * and checks whether the expected characters are present.
- * Must be run after testFPRINTF().
- */
-void testFREAD(void)
-{
-   unsigned char buffer[20];
+void test_contar_frequencia(void){
+   FILE *arq = fopen("CUnit/public/arquivo_test.txt", "rb");
 
-   if (NULL != temp_file) {
-      rewind(temp_file);
-      CU_ASSERT(9 == fread(buffer, sizeof(unsigned char), 20, temp_file));
-      CU_ASSERT(0 == strncmp(buffer, "Q\ni1 = 10", 9));
-   }
+   ulli *freq = contar_frequencia_from_file(arq);
+   CU_ASSERT(freq['a'] == 26);
+   CU_ASSERT(freq['b'] == 3);
 }
 
 /* The main() function for setting up and running the tests.
@@ -86,8 +70,8 @@ int main()
 
    /* add the tests to the suite */
    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-   if ((NULL == CU_add_test(pSuite, "test of fprintf()", testFPRINTF)) ||
-       (NULL == CU_add_test(pSuite, "test of fread()", testFREAD)))
+   if ((NULL == CU_add_test(pSuite, "test of criar_nova_freq()", test_criar_nova_freq)) ||
+       (NULL == CU_add_test(pSuite, "test of contar_frequencia()", test_contar_frequencia)))
    {
       CU_cleanup_registry();
       return CU_get_error();
