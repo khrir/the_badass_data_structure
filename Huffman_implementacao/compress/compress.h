@@ -8,7 +8,7 @@
 #include "../fila_prio/fila_prio.h"
 #include "../freq/freq.h"
 
-// Função que comprime um arquivo
+// junta todas as funções de compressão para comprimir o arquivo
 void comprimir(char *nome_arquivo);
 
 #endif

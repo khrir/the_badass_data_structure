@@ -10,12 +10,8 @@ void comprimir(char *nome_arquivo){
     criar_huff_tree(fila);
     ulli tamanho_arvore = 0;
     tamanho_huff_tree(fila->head, &tamanho_arvore);
-    puts("");
-    puts("Tamanho da arvore calculado!");
     escrv_bytes_cod(nome_arquivo, fila->head);
     agrupar_em_bytes_e_salvar("caminho_bytes.txt");
-    //escrv_bytes_cod(nome_arquivo, fila); vai gerar o txt bytes_code.txt
-    // preciso pegar depis esse txt e transformar em binario espaçado em bytes e aí sim salvar no arquivo
     salvar_no_arquivo(nome_arquivo, tamanho_arvore, fila);
     free(freq);
     free(fila);

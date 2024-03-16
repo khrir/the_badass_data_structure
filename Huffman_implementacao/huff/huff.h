@@ -15,7 +15,6 @@ int encontrar_folhas(Node_prio *node);
 // Função que encontra o tamanho da árvore de Huffman
 void tamanho_huff_tree(Node_prio *node, ulli *tmn);
 
-
 // Função que salva a árvore de Huffman em um arquivo
 void salvar_huff_file(Node_prio *node, char *nome_arquivo);
 
@@ -28,10 +27,5 @@ Node_prio *construir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, ulli *t
 // Função que libera a memória alocada para a árvore de Huffman
 void free_huff_tree(Node_prio *node);
 
-void pre_order(Node_prio *node, char *nome_arquivo);
-
-
-
- 
 #endif
 
