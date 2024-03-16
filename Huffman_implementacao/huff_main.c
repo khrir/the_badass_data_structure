@@ -38,7 +38,7 @@ int main(){
                     char *nome_arquivo_desc = input();
                     descomprimir(nome_arquivo_desc);
                     puts("");
-                    puts("Arquivo comprimido com sucesso e salvo no diretorio do programa.");
+                    puts("Arquivo descomprimido com sucesso e salvo no diretorio do programa.");
                     puts("");
                     puts("Pressione Enter para continuar.");
                     if(getchar() == 10) limpar_tela();
