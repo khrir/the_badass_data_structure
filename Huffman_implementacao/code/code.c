@@ -34,7 +34,7 @@ void gerar_caminho(FILE *arq_code, Node_prio *node, int byte, Node_lista *lista_
     else remove_Node_lista(lista_bin);
 }
 
-void escrv_bytes_cod(char *nome_arquivo, Node_prio *fila){
+void escrv_bits_cod(char *nome_arquivo, Node_prio *fila){
     FILE *arq_pai = fopen(nome_arquivo, "rb");
     FILE *arq_cod = fopen("bytes_code.txt", "wb");
     uchar byte_lido;
@@ -66,7 +66,7 @@ void escrever_cabecalho(int tmn_lixo, int tmn_arvore, char *nome_arquivo){
 }
 
 
-void salvar_no_arquivo(char *nome_arquivo, int tamanho_arvore, Fila_prio *fila){
+void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
     
     FILE *arq_codificado = fopen("bytes_code.txt", "rb");
     int tmn_lixo = calc_lixo("bytes_code.txt");
@@ -78,7 +78,7 @@ void salvar_no_arquivo(char *nome_arquivo, int tamanho_arvore, Fila_prio *fila){
     strcat(nome_arq_final, ".sccp");
 
     FILE *arq_final = fopen(nome_arq_final, "wb");
-    escrever_cabecalho(tmn_lixo, tamanho_arvore, nome_arq_final);
+    escrever_cabecalho(tmn_lixo, tmn_arvore, nome_arq_final);
     puts("Cabecalho escrito!");
 
     salvar_huff_file(fila->head, nome_arq_final);

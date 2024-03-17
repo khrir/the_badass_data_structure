@@ -3,11 +3,18 @@
 
 #include "../util/util.h"
 
-// cria um vetor zerado de 256 posições
+/*
+Cria um vetor de frequencia de 256 posições e inicializa todas as posições com 0
+
+*/
 int *criar_freq();
 
-// conta a frequência de cada caractere no arquivo
+/*
+Conta a frequencia de cada byte em um arquivo e retorna um vetor de frequencia
+
+@param nome_arquivo: nome do arquivo a ser lido
+
+*/
 int *contar_freq(char *nome_arquivo);
-int *contar_freq_from_file(FILE *arquivo);
 
 #endif

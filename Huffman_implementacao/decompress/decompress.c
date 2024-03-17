@@ -63,7 +63,8 @@ void descomprimir(char *arq_comprmido){
 
     char nome_arq_descomprimido[strlen(arq_comprmido)];
     strcpy(nome_arq_descomprimido, arq_comprmido);
-
+    nome_arq_descomprimido[strlen(arq_comprmido) - 5] = '\0';
+    
     escr_bytes_descomp(arq_comp, arvore, tmn_lixo, fopen(nome_arq_descomprimido, "wb"));
 
     free_huff_tree(arvore);
