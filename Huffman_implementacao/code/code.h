@@ -2,7 +2,7 @@
 #define CODE_H
 
 #include "../util/util.h"
-#include "../fila_prio./fila_prio.h"
+#include "../fila_prio/fila_prio.h"
 #include "../freq/freq.h"
 #include "../huff/huff.h"
 

@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "CUnit/Basic.h"
-#include "../Huffman_implementacao/freq.h"
+#include "../Huffman_implementacao/freq/freq.h"
+// #include "../Huffman_implementacao/fila_prio/fila_prio.h"
+// #include "../Huffman_implementacao/decompress/decompress.h"
+// #include "../Huffman_implementacao/compress/compress.h"
+// #include "../Huffman_implementacao/util/util.h"
+// #include "../Huffman_implementacao/huff/huff.h"
+// #include "../Huffman_implementacao/code/code.h"
+
 
 /* Pointer to the file used by the tests. */
 static FILE* temp_file = NULL;
@@ -36,18 +43,83 @@ int clean_suite1(void)
 }
 
 void test_criar_nova_freq(void){
-   ulli *freq = criar_nova_freq();
+   ulli *freq = criar_freq();
    CU_ASSERT(freq[0] == 0);
    CU_ASSERT(freq[255] == 0);
 }
 
 void test_contar_frequencia(void){
-   FILE *arq = fopen("CUnit/public/arquivo_test.txt", "rb");
+   FILE *arq = fopen("./CUnit/public/arquivo_test.txt", "rb");
 
-   ulli *freq = contar_frequencia_from_file(arq);
-   CU_ASSERT(freq['a'] == 26);
+   ulli *freq = contar_freq_from_file(arq);
+   CU_ASSERT(freq['a'] == 27);
    CU_ASSERT(freq['b'] == 3);
 }
+
+// void test_criar_fila(char *nome_arquivo){
+//    FILE *arq = 
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    CU_ASSERT(fila->freq == 3);
+//    CU_ASSERT(fila->c == 'b');
+// }
+
+// void test_enfileirar(Fila_prio *fila, char *nome_arquivo){
+//    FILE *arq = 
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    enfileirar(fila, 'a', 27);
+//    CU_ASSERT(fila->freq == 3);
+//    CU_ASSERT(fila->c == 'b');
+//    CU_ASSERT(fila->prox->freq == 27);
+//    CU_ASSERT(fila->prox->c == 'a');
+// }
+
+// void test_desenfileirar(Fila_prio *fila){
+//    FILE *arq = "..Huffman_implementacao/"
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    enfileirar(fila, 'a', 27);
+//    desenfileirar(fila);
+//    CU_ASSERT(fila->freq == 27);
+//    CU_ASSERT(fila->c == 'a');
+// }
+
+// void test_enfila_huff(Fila_prio *fila, Node_prio *node){
+//    FILE *arq = "..Huffman_implementacao/"
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    enfileirar(fila, 'a', 27);
+//    enfileirar(fila, 'b', 3);
+//    Node *node = enfila_huff(fila);
+//    CU_ASSERT(node->freq == 30);
+//    CU_ASSERT(node->c == ' ');
+//    CU_ASSERT(node->left->freq == 3);
+//    CU_ASSERT(node->left->c == 'b');
+//    CU_ASSERT(node->right->freq == 27);
+//    CU_ASSERT(node->right->c == 'a');
+
+// }
+
+// void teste_imprimir_fila(Fila_prio *fila){
+//    FILE *arq = "..Huffman_implementacao/"
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    enfileirar(fila, 'a', 27);
+//    enfileirar(fila, 'b', 3);
+//    imprimir_fila(fila);
+//    CU_ASSERT(imprimir_fila);
+// }
+
+// void teste_free_fila(Fila_prio *fila){
+//    FILE *arq = "..Huffman_implementacao/"
+//    ulli *freq = criar_freq(arq);
+//    Node *fila = criar_fila(freq);
+//    enfileirar(fila, 'a', 27);
+//    enfileirar(fila, 'b', 3);
+//    free_fila(fila);
+//    CU_ASSERT(fila == NULL);
+// }
 
 /* The main() function for setting up and running the tests.
  * Returns a CUE_SUCCESS on successful running, another
