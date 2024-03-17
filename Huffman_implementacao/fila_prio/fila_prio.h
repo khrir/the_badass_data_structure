@@ -15,19 +15,45 @@ typedef struct Fila_prio{
     struct Node_prio *head;
 }Fila_prio;
 
-//cria uma fila de prioridade alocando memoria e apontando o head para NULL
+/*
+Cria uma fila de prioridade aloca memoria para a fila e inicializa a fila apontando para NULL
+
+*/
 Fila_prio *criar_fila();
 
-//enfileira um byte com sua respectiva frequencia
+/*
+Enfileira um byte e sua frequencia na fila de prioridade
+
+@param fila: fila de prioridade
+@param byte: byte a ser enfileirado
+@param frequencia: frequencia do byte a ser enfileirado
+
+*/
 void enfileirar(Fila_prio *fila, uchar byte, int frequencia);
 
-//enfileira um no de arvore de huffman com os bytes , frequencia e os filhos
+/*
+Enfileira um no na fila de prioridade como um no de arvore de huffman
+
+@param fila: fila de prioridade
+@param node: no a ser enfileirado
+
+*/
 void enfila_huff(Fila_prio *fila, Node_prio *node);
 
-//desenfileira um no da fila de prioridade
+/*
+Desenfileira um no da fila de prioridade
+
+@param fila: fila de prioridade
+
+*/
 Node_prio *desenfileirar(Fila_prio *fila);
 
-//libera a memoria alocada para a fila de prioridade
+/*
+Libera a memoria alocada para a fila de prioridade
+
+@param fila: fila de prioridade
+
+*/
 void free_fila(Fila_prio *fila);
 
 #endif
