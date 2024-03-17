@@ -9,6 +9,6 @@
 #include "../freq/freq.h"
 
 // junta todas as funções de compressão para comprimir o arquivo
-void comprimir(char *nome_arquivo);
+int comprimir(char *nome_arquivo);
 
 #endif

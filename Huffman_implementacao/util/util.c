@@ -17,7 +17,7 @@ char *input(){
 
 
 void agrupar_em_bytes_e_salvar(char *nome_arquivo){
-    FILE *arquivo_entrada = fopen("bytes_code.txt", "rb");
+    FILE *arquivo_entrada = fopen("tmp/bytes_code.txt", "rb");
     FILE *arquivo_saida = fopen(nome_arquivo, "wb");
     uchar bytes_lidos = 0;
     uchar byte = 0;

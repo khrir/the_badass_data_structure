@@ -2,12 +2,12 @@
 #include <string.h>
 #include "CUnit/Basic.h"
 #include "../Huffman_implementacao/freq/freq.h"
-// #include "../Huffman_implementacao/fila_prio/fila_prio.h"
-// #include "../Huffman_implementacao/decompress/decompress.h"
-// #include "../Huffman_implementacao/compress/compress.h"
-// #include "../Huffman_implementacao/util/util.h"
-// #include "../Huffman_implementacao/huff/huff.h"
-// #include "../Huffman_implementacao/code/code.h"
+#include "../Huffman_implementacao/fila_prio/fila_prio.h"
+#include "../Huffman_implementacao/decompress/decompress.h"
+#include "../Huffman_implementacao/compress/compress.h"
+#include "../Huffman_implementacao/util/util.h"
+#include "../Huffman_implementacao/huff/huff.h"
+#include "../Huffman_implementacao/code/code.h"
 
 
 /* Pointer to the file used by the tests. */
@@ -43,7 +43,7 @@ int clean_suite1(void)
 }
 
 void test_criar_nova_freq(void){
-   ulli *freq = criar_freq();
+   int *freq = criar_freq();
    CU_ASSERT(freq[0] == 0);
    CU_ASSERT(freq[255] == 0);
 }
@@ -51,7 +51,7 @@ void test_criar_nova_freq(void){
 void test_contar_frequencia(void){
    FILE *arq = fopen("./CUnit/public/arquivo_test.txt", "rb");
 
-   ulli *freq = contar_freq_from_file(arq);
+   int *freq = contar_freq_from_file(arq);
    CU_ASSERT(freq['a'] == 27);
    CU_ASSERT(freq['b'] == 3);
 }

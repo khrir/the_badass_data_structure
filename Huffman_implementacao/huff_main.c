@@ -22,7 +22,7 @@ int main(){
                 limpar_tela();
                 printf("Digite o nome do arquivo que deseja comprimir:\n");
                     char *nome_arquivo_comp = input();
-                    comprimir(nome_arquivo_comp);
+                    if(!comprimir(nome_arquivo_comp)) break;
                     puts("");
                     puts("Arquivo comprimido com sucesso e salvo no diretorio do programa.");
                     puts("");
