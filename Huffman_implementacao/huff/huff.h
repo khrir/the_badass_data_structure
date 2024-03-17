@@ -27,5 +27,7 @@ Node_prio *construir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, ulli *t
 // Função que libera a memória alocada para a árvore de Huffman
 void free_huff_tree(Node_prio *node);
 
+void pre_ordem(Node_prio *node);
+
 #endif
 

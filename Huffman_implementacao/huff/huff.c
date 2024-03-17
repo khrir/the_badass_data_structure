@@ -85,3 +85,11 @@ void pre_order(Node_prio *node, char *nome_arquivo){
         pre_order(node->right, nome_arquivo);
     }
 }   
+
+void pre_ordem(Node_prio *node){
+    if(node){
+        printf("%c", node->byte);
+        pre_ordem(node->left);
+        pre_ordem(node->right);
+    }
+}

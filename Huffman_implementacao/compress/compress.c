@@ -8,13 +8,14 @@ int comprimir(char *nome_arquivo){
     }
     fclose(arquivo);
 
-    int *freq = contar_freq(nome_arquivo);
+    ulli *freq = contar_freq(nome_arquivo);
     Fila_prio *fila = criar_fila();
     for(int i = 0; i < 256; i++){
         if(freq[i] != 0)
             enfileirar(fila, (uchar)i, freq[i]);
     }
     criar_huff_tree(fila);
+    pre_ordem(fila->head);
     ulli tamanho_arvore = 0;
     tamanho_huff_tree(fila->head, &tamanho_arvore);
     escrv_bytes_cod(nome_arquivo, fila->head);

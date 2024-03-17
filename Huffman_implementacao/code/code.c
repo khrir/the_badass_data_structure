@@ -75,7 +75,7 @@ void salvar_no_arquivo(char *nome_arquivo, int tamanho_arvore, Fila_prio *fila){
 
     char *nome_arq_final = (char*)malloc(50*sizeof(char));
     strncpy(nome_arq_final, nome_arquivo, strlen(nome_arquivo) + 1);
-    strncat(nome_arq_final, ".sccp", 5);
+    strncat(nome_arq_final, ".sccp", 6);
 
     FILE *arq_final = fopen(nome_arq_final, "wb");
     escrever_cabecalho(tmn_lixo, tamanho_arvore, nome_arq_final);
