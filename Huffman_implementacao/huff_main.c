@@ -1,6 +1,11 @@
 #include "compress/compress.h"
 #include "decompress/decompress.h"
 
+/**
+ * @brief Main function
+ * 
+ * @return int 
+ */
 int main(){
     system("chcp 65001");
     limpar_tela();

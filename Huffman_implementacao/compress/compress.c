@@ -1,5 +1,11 @@
 #include "compress.h"
 
+/**
+ * @brief Compress the file
+ * 
+ * @param nome_arquivo
+ * @return void
+ */
 void comprimir(char *nome_arquivo){
     int *freq = contar_freq(nome_arquivo);
     Fila_prio *fila = criar_fila();

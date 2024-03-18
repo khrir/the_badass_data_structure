@@ -1,5 +1,12 @@
 #include "code.h"
 
+/**
+ * @brief Create a new node
+ * 
+ * @param node 
+ * @param item 
+ * @return Node_lista* 
+ */
 Node_lista *novo_Node_lista(Node_lista *node, int item){
     Node_lista *new_node = (Node_lista*)malloc(sizeof(Node_lista));
     new_node->item = item;
@@ -7,6 +14,12 @@ Node_lista *novo_Node_lista(Node_lista *node, int item){
     return new_node;
 }
 
+/**
+ * @brief Remove a node from the list
+ * 
+ * @param node 
+ * @return Node_lista* 
+ */
 Node_lista *remove_Node_lista(Node_lista *node){
     if (node == NULL) return NULL;
     Node_lista *next_node = node->next;
@@ -14,6 +27,13 @@ Node_lista *remove_Node_lista(Node_lista *node){
     return next_node;
 }
 
+/**
+ * @brief Write the binary list in a file
+ * 
+ * @param arquivo 
+ * @param node 
+ * @return void
+ */
 void escrv_lista_bin(FILE *arquivo, Node_lista *node){
     if(node){
         escrv_lista_bin(arquivo, node->next);
@@ -22,6 +42,15 @@ void escrv_lista_bin(FILE *arquivo, Node_lista *node){
     return;
 }
 
+/**
+ * @brief Create the way to the byte
+ * 
+ * @param arq_code 
+ * @param node 
+ * @param byte 
+ * @param lista_bin 
+ * @return void
+ */
 void gerar_caminho(FILE *arq_code, Node_prio *node, int byte, Node_lista *lista_bin){
     if(node){
         if(node->byte == byte){
@@ -34,6 +63,13 @@ void gerar_caminho(FILE *arq_code, Node_prio *node, int byte, Node_lista *lista_
     else remove_Node_lista(lista_bin);
 }
 
+/**
+ * @brief Write the tree in a file
+ * 
+ * @param nome_arquivo 
+ * @param fila 
+ * @return void
+ */
 void escrv_bits_cod(char *nome_arquivo, Node_prio *fila){
     FILE *arq_pai = fopen(nome_arquivo, "rb");
     FILE *arq_cod = fopen("bytes_code.txt", "wb");
@@ -46,6 +82,12 @@ void escrv_bits_cod(char *nome_arquivo, Node_prio *fila){
     fclose(arq_cod);
 }
 
+/**
+ * @brief Calculate the trash size
+ * 
+ * @param nome_arquivo 
+ * @return int
+ */
 int calc_lixo(char *nome_arquivo){
     FILE *arq = fopen(nome_arquivo, "rb");
     ulli bits = 0;
@@ -55,6 +97,14 @@ int calc_lixo(char *nome_arquivo){
     return (resto > 0) ? 8 - resto : 0;
 }
 
+/**
+ * @brief Write the header of the file
+ * 
+ * @param tmn_lixo
+ * @param tmn_arvore 
+ * @param nome_arquivo 
+ * @return void
+ */
 void escrever_cabecalho(int tmn_lixo, int tmn_arvore, char *nome_arquivo){
     uchar byte1, byte2;
     FILE *arquivo = fopen(nome_arquivo, "wb");
@@ -65,7 +115,14 @@ void escrever_cabecalho(int tmn_lixo, int tmn_arvore, char *nome_arquivo){
     fclose(arquivo);
 }
 
-
+/**
+ * @brief Save the tree in a file
+ * 
+ * @param nome_arquivo 
+ * @param tmn_arvore
+ * @param fila 
+ * @return void
+ */
 void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
     
     FILE *arq_codificado = fopen("bytes_code.txt", "rb");
