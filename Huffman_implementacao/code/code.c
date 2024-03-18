@@ -53,7 +53,7 @@ void escrv_lista_bin(FILE *arquivo, Node_lista *node){
  */
 void gerar_caminho(FILE *arq_code, Node_prio *node, int byte, Node_lista *lista_bin){
     if(node){
-        if(node->byte == byte && encontrar_folhas(node){
+        if(node->byte == byte && encontrar_folhas(node)){
             escrv_lista_bin(arq_code, lista_bin);
             return;
         }
