@@ -1,5 +1,14 @@
 #include "decompress.h"
 
+/**
+ * @brief Read the header of the compressed file
+ * 
+ * @param arq_comprimido
+ * @param cabecalho
+ * @param tmn_lixo
+ * @param tmn_arvore
+ * @return void
+ */
 void ler_cabecalho(FILE *arq_comprimido, uchar *cabecalho, int *tmn_lixo, ulli *tmn_arvore){
     cabecalho[1] = fgetc(arq_comprimido);
     cabecalho[0] = fgetc(arq_comprimido);
@@ -14,6 +23,15 @@ void ler_cabecalho(FILE *arq_comprimido, uchar *cabecalho, int *tmn_lixo, ulli *
     memcpy(tmn_arvore, &avore, 2);
 }
 
+/**
+ * @brief Write the decompressed bytes in a file
+ * 
+ * @param arq_comprimido
+ * @param arvore
+ * @param tmn_lixo
+ * @param arq_descomprimido
+ * @return void
+ */
 void escr_bytes_descomp(FILE *arq_comprimido, Node_prio *arvore, int tmn_lixo, FILE *arq_descomprimido){
     Node_prio *node_atual = arvore;
     uchar byte, byte_aux;
@@ -49,7 +67,12 @@ void escr_bytes_descomp(FILE *arq_comprimido, Node_prio *arvore, int tmn_lixo, F
     fclose(arq_descomprimido);
 }
 
-
+/**
+ * @brief Decompress the file
+ * 
+ * @param arq_comprmido
+ * @return void
+ */
 void descomprimir(char *arq_comprmido){
     int tmn_lixo;
     ulli tmn_arvore;

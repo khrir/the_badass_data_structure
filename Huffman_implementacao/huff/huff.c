@@ -1,5 +1,14 @@
 #include "huff.h"
 
+/**
+ * @brief Create a new Huffman node
+ * 
+ * @param byte 
+ * @param frequencia 
+ * @param left 
+ * @param right 
+ * @return Node_prio* 
+ */
 Node_prio *novo_huff_node(uchar byte, int frequencia, Node_prio *left, Node_prio *right){
     Node_prio *new_node = (Node_prio*)malloc(sizeof(Node_prio));
     new_node->byte = byte;
@@ -9,6 +18,12 @@ Node_prio *novo_huff_node(uchar byte, int frequencia, Node_prio *left, Node_prio
     return new_node;
 }
 
+/**
+ * @brief Create the Huffman Tree
+ * 
+ * @param fila
+ * @return Fila_prio* 
+ */
 void criar_huff_tree(Fila_prio *fila){
     while(fila->head->next != NULL){
         Node_prio *left = desenfileirar(fila);
@@ -22,6 +37,13 @@ void criar_huff_tree(Fila_prio *fila){
     }
 }
 
+/**
+ * @brief Count the size of the Huffman Tree
+ * 
+ * @param node
+ * @param tmn
+ * @return void
+ */
 void tamanho_huff_tree(Node_prio *node, ulli *tmn){
     if(node){
         *tmn += 1;
@@ -30,10 +52,23 @@ void tamanho_huff_tree(Node_prio *node, ulli *tmn){
     }
 }
 
+/**
+ * @brief Seach for the leaves of the Huffman Tree
+ * 
+ * @param node
+ * @return int
+ */
 int encontrar_folhas(Node_prio *node){
     return(node->left == NULL && node->right == NULL);
 }
-// abrir e fecha so uma vez o file 
+
+/**
+ * @brief Save the Huffman Tree in a file
+ * 
+ * @param node 
+ * @param nome_arquivo 
+ * @return void
+ */
 void salvar_huff_file(Node_prio *node, char *nome_arquivo){
     if(node){
         FILE *arquivo = fopen(nome_arquivo, "a"); 
@@ -47,6 +82,14 @@ void salvar_huff_file(Node_prio *node, char *nome_arquivo){
     }
 }
 
+/**
+ * @brief Build the Huffman Tree from a file
+ * 
+ * @param arquivo 
+ * @param huff_tree 
+ * @param tmn_arvore 
+ * @return Node_prio* 
+ */
 Node_prio *construir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, ulli *tmn_arvore){
     if(*tmn_arvore > 0){
         uchar byte = fgetc(arquivo);
@@ -68,6 +111,12 @@ Node_prio *construir_huff_from_file(FILE *arquivo, Node_prio *huff_tree, ulli *t
     return huff_tree;
 }
 
+/**
+ * @brief Free the Huffman Tree
+ * 
+ * @param node 
+ * @return void
+ */
 void free_huff_tree(Node_prio *node){
     if(node){
         free_huff_tree(node->left);
@@ -76,7 +125,13 @@ void free_huff_tree(Node_prio *node){
     }
 }
 
- 
+/**
+ * @brief Write the tree in pre-order
+ * 
+ * @param node 
+ * @param nome_arquivo 
+ * @return void
+ */
 void pre_order(Node_prio *node, char *nome_arquivo){
     if(node){
         FILE *arquivo = fopen(nome_arquivo, "a");

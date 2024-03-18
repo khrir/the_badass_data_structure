@@ -1,5 +1,11 @@
 #include "util.h"
 
+/**
+ * @brief Calculate the size of a file
+ * 
+ * @param node_arquivo 
+ * @return int* 
+ */
 int tmn_arquivo(char *nome_arquivo){
     FILE *arquivo = fopen(nome_arquivo,"r");
     fseek(arquivo, 0, SEEK_END);
@@ -8,6 +14,11 @@ int tmn_arquivo(char *nome_arquivo){
     return tmn;
 }
 
+/**
+ * @brief Input a string
+ * 
+ * @return void
+ */
 char *input(){
     char *str = (char*)malloc(100);
     fgets(str, 100, stdin);
@@ -15,7 +26,12 @@ char *input(){
     return str;
 }
 
-
+/**
+ * @brief Group the bits in bytes and save in a file
+ * 
+ * @param nome_arquivo 
+ * @return void
+ */
 void agrupar_em_bytes_e_salvar(char *nome_arquivo){
     FILE *arquivo_entrada = fopen("bytes_code.txt", "rb");
     FILE *arquivo_saida = fopen(nome_arquivo, "wb");
@@ -40,11 +56,20 @@ void agrupar_em_bytes_e_salvar(char *nome_arquivo){
     fclose(arquivo_saida);
 }
 
+/**
+ * @brief Clear the screen
+ * 
+ * @return void
+ */
 void limpar_tela(){
     printf("\033[H\033[J");
 }   
 
-
+/**
+ * @brief Print the TODO PODEROSO TIMÃO
+ * 
+ * @return void
+ */
 void print_art1(){
  printf("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢻⣧⣀⣼⠇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄\n");
   printf("⣠⣾⣿⣷⡀⠄⠄⠄⠄⠄⣤⣶⣿⣿⣿⣦⣄⠄⠄⠄⠄⠄⣠⣾⣿⣷⣄⠄\n");
@@ -64,7 +89,11 @@ void print_art1(){
   printf("⠄⠄⠾⠉⠄⠄⠙⠿⣽⣟⣿⣿⡿⠟⢹⣿⣿⣿⣟⣿⣽⠞⠋⠄⠄⠄⠑⠄⠄\n");
 }
 
-
+/**
+ * @brief Print the Shrek art
+ * 
+ * @return void
+ */
 void print_art2(){
   printf("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n");
   printf("⣿⠟⠫⢻⣿⣿⣿⣿⢟⣩⡍⣙⠛⢛⣿⣿⣿⠛⠛⠛⠛⠻⣿⣿⣿⣿⣿⡿⢿⣿\n");
