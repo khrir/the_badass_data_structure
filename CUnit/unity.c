@@ -2,12 +2,12 @@
 #include <string.h>
 #include "CUnit/Basic.h"
 #include "../Huffman_implementacao/freq/freq.h"
-// #include "../Huffman_implementacao/fila_prio/fila_prio.h"
-// #include "../Huffman_implementacao/decompress/decompress.h"
-// #include "../Huffman_implementacao/compress/compress.h"
-// #include "../Huffman_implementacao/util/util.h"
-// #include "../Huffman_implementacao/huff/huff.h"
-// #include "../Huffman_implementacao/code/code.h"
+#include "../Huffman_implementacao/fila_prio/fila_prio.h"
+#include "../Huffman_implementacao/decompress/decompress.h"
+#include "../Huffman_implementacao/compress/compress.h"
+#include "../Huffman_implementacao/util/util.h"
+#include "../Huffman_implementacao/huff/huff.h"
+#include "../Huffman_implementacao/code/code.h"
 
 
 /* Pointer to the file used by the tests. */
@@ -56,13 +56,32 @@ void test_contar_frequencia(void){
    CU_ASSERT(freq['b'] == 3);
 }
 
-// void test_criar_fila(char *nome_arquivo){
-//    FILE *arq = 
-//    ulli *freq = criar_freq(arq);
-//    Node *fila = criar_fila(freq);
-//    CU_ASSERT(fila->freq == 3);
-//    CU_ASSERT(fila->c == 'b');
-// }
+void test_criar_fila(char *nome_arquivo){
+   Fila_prio *fila = criar_fila();
+   CU_ASSERT(fila->head == NULL);
+}
+
+void test_desenfileirar_fila_vazia(void) {
+   Fila_prio fila;
+   fila.head = NULL;
+
+   Node_prio *no_desenfileirado = desenfileirar(&fila);
+
+   CU_ASSERT_PTR_NULL(no_desenfileirado);
+   CU_ASSERT_PTR_NULL(fila.head);
+}
+
+void test_novo_Node_lista() {
+   Node_lista *node = NULL;
+   int item = 10;
+
+   Node_lista *new_node = novo_Node_lista(node, item);
+
+   CU_ASSERT_EQUAL(new_node->item, item);
+   CU_ASSERT_PTR_NULL(new_node->next);
+
+   free(new_node);
+}
 
 // void test_enfileirar(Fila_prio *fila, char *nome_arquivo){
 //    FILE *arq = 
