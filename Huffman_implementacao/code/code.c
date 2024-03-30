@@ -105,6 +105,8 @@ int calc_lixo(char *nome_arquivo){
  * @param nome_arquivo 
  * @return void
  */
+
+
 void escrever_cabecalho(int tmn_lixo, int tmn_arvore, char *nome_arquivo){
     uchar byte1, byte2;
     FILE *arquivo = fopen(nome_arquivo, "wb");
@@ -123,6 +125,39 @@ void escrever_cabecalho(int tmn_lixo, int tmn_arvore, char *nome_arquivo){
  * @param fila 
  * @return void
  */
+
+void tamanho_extensao_arquivo(char *nome_arquivo, char *nome_arquivo_final) {
+    uchar byte_extensao;
+    FILE *arquivo = fopen(nome_arquivo_final, "ab"); // Abrindo o arquivo para escrita binária ao final
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo_final);
+        return;
+    }
+
+    int tamanho_extensao;
+    char *ponto = strrchr(nome_arquivo, '.');
+    if (ponto == NULL) {
+        puts("Arquivo sem extensão.\n");
+        puts("Fechando o programa.\n");
+        fclose(arquivo); // Fechar o arquivo antes de retornar
+        return;
+    } else {
+        tamanho_extensao = strlen(ponto + 1) + 1;
+        if (tamanho_extensao > 6) {
+            puts("Não é possível! Tamanho de extensão é maior que o permitido\n");
+            puts("Fechando o programa.\n");
+            fclose(arquivo); // Fechar o arquivo antes de retornar
+            return;
+        }
+    }
+
+    byte_extensao = (uchar)(tamanho_extensao << 5);
+ 
+    fwrite(&byte_extensao, sizeof(uchar), 1, arquivo);
+    fclose(arquivo);
+}
+
 void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
     
     FILE *arq_codificado = fopen("bytes_code.txt", "rb");
@@ -140,8 +175,17 @@ void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
 
     salvar_huff_file(fila->head, nome_arq_final);
     puts("Arvore salva no arquivo!");
+
+    tamanho_extensao_arquivo(nome_arquivo, nome_arq_final);
+    puts("Tamanho da extensão do arquivo escrita!");
+
+    imprimir_extensao_arquivo(nome_arq_final);
+    puts("Extensão escrita no arquivo!");
+
     fclose(arq_final);
 
+
+    
     FILE *arq_compac = fopen(nome_arq_final, "ab");
 
     FILE *arq_cod = fopen("caminho_bytes.txt", "rb");

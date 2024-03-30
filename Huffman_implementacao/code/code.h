@@ -65,6 +65,7 @@ Calcula o lixo que vai ser adicionado no arquivo
 */
 int calc_lixo(char *nome_arquivo);
 
+void tamanho_extensao_arquivo(char *nome_arquivo, char *nome_arquivo_final);
 /*
 Escreve o cabeçalho no arquivo
 
