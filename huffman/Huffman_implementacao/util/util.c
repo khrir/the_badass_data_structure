@@ -26,6 +26,14 @@ char *input(){
     return str;
 }
 
+void free_dictionary(uchar **dictionary) {
+    int i;
+    for(i = 0; i < MAX_SIZE; i++){
+        free(dictionary[i]);
+    }
+    free(dictionary);
+}
+
 /**
  * @brief Group the bits in bytes and save in a file
  * 

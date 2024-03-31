@@ -30,7 +30,7 @@ Enfileira um byte e sua frequencia na fila de prioridade
 @param frequencia: frequencia do byte a ser enfileirado
 
 */
-void enfileirar(Fila_prio *fila, uchar byte, int frequencia);
+void enfileirar(Fila_prio *list, ulli *frequencyTable);
 
 //ADICIONAR COMENTARIOOOOOOO
 
@@ -51,7 +51,7 @@ Desenfileira um no da fila de prioridade
 @param fila: fila de prioridade
 
 */
-Node_prio *desenfileirar(Fila_prio *fila);
+Node_prio *desenfileirar(Fila_prio *list);
 
 /*
 Libera a memoria alocada para a fila de prioridade

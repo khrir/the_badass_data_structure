@@ -5,10 +5,19 @@ int calculate_altura(Node_prio *root) {
 
     if(root == NULL) return 0;
 
-    left_height = calculate_tree_height(root->left) + 1;
-    right_height = calculate_tree_height(root->right) + 1;
+    left_height = calculate_altura(root->left) + 1;
+    right_height = calculate_altura(root->right) + 1;
 
     return (left_height > right_height) ? left_height : right_height;
+}
+
+int calculate_string_size(uchar **dictionary, uchar *text) {
+    int i, size = 0;
+    while(text[i] != '\0'){
+        size += strlen((char *)dictionary[text[i]]);
+        i++;
+    }
+    return size;
 }
 
 uchar **create_dictionary(int columns) {
@@ -20,7 +29,7 @@ uchar **create_dictionary(int columns) {
     return dictionary;
 }
 
-void fill_dictionary(Node_prio *root, uchar **dictionary, uchar *path, int columns){
+void fill_dictionary(Node_prio *root, uchar **dictionary, uchar *path, int columns) {
     uchar left[columns], right[columns];
 
     if(root != NULL && root->left == NULL && root->right == NULL){
@@ -37,8 +46,40 @@ void fill_dictionary(Node_prio *root, uchar **dictionary, uchar *path, int colum
     }
 }
 
-bool eh_folha(Node_prio *root){
+uchar *file_to_string(char *fileName){
+    FILE *file = fopen(fileName, "rb");
+    fseek(file, 0, SEEK_END);
+    size_t size = ftell(file);
+    fseek(file, 0, SEEK_SET);
 
+    printf("Tamanho do arquivo: %ld bytes\n", size);
+    uchar *string = (uchar *)calloc(size + 1, sizeof(uchar)); // +1 for null terminator
+
+    if(string == NULL) {
+        printf("Erro ao alocar memória para a string.\n");
+        exit(1);
+    }
+
+    fread(string, sizeof(uchar), size, file);
+    string[size] = '\0'; // Null terminate the string
+
+    return string;
+}
+
+uchar *codifica(uchar **dictionary, uchar *text) {
+    int i = 0, size = calculate_string_size(dictionary, text);
+    uchar *code = (uchar *)calloc(size + 1, sizeof(uchar)); // +1 for null terminator
+
+    if (code == NULL) {
+        printf("Erro ao alocar memória para o código.\n");
+        exit(1);
+    }
+
+    while (text[i] != '\0') {
+        strcat((char *)code, (char *)dictionary[text[i]]);
+        i++;
+    }
+    return code;
 }
 
 /**
@@ -129,11 +170,8 @@ void escrv_bits_cod(char *nome_arquivo, Node_prio *fila){
  * @param nome_arquivo 
  * @return int
  */
-int calc_lixo(char *nome_arquivo){
-    FILE *arq = fopen(nome_arquivo, "rb");
-    ulli bits = 0;
-    while(fgetc(arq) != EOF) bits++;
-    fclose(arq);
+int calc_lixo(uchar *code){
+    int bits = strlen(code);
     int resto = bits % 8; 
     return (resto > 0) ? 8 - resto : 0;
 }
@@ -203,12 +241,10 @@ void tamanho_extensao_arquivo(char *nome_arquivo, char *nome_arquivo_final) {
  * @return void
  */
 
-void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
+void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila, uchar *code){
     
-    FILE *arq_codificado = fopen("bytes_code.txt", "rb");
-    int tmn_lixo = calc_lixo("bytes_code.txt");
+    int tmn_lixo = calc_lixo(code);
     puts("Lixo calculado!");
-    fclose(arq_codificado);
 
     char *nome_arq_final = (char*)malloc(50*sizeof(char));
     strcpy(nome_arq_final, nome_arquivo);
@@ -223,19 +259,46 @@ void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
 
     tamanho_extensao_arquivo(nome_arquivo, nome_arq_final);
     puts("Tamanho da extensão do arquivo escrita!");
-
     fclose(arq_final);
 
-    FILE *arq_compac = fopen(nome_arq_final, "ab");
+    uchar *new_code = agrupar_bits(code);
 
-    FILE *arq_cod = fopen("caminho_bytes.txt", "rb");
-    uchar byte;
-    size_t result;
-    while((result = fread(&byte, sizeof(uchar), 1, arq_cod)) > 0){
-        fwrite(&byte, sizeof(uchar), 1, arq_compac);
+    FILE *arquivo=fopen(nome_arq_final, "ab");
+    fwrite(new_code, sizeof(uchar), strlen((char *)new_code) + 1, arquivo);
+    fclose(arquivo);
+    
+    free(nome_arq_final);
+}
+
+
+uchar *agrupar_bits(uchar *code) {
+    uchar *resultado = (uchar *)malloc((strlen((char *)code) / 8) * sizeof(uchar));
+    if (resultado == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(1);
     }
 
-    fclose(arq_cod);
-    fclose(arq_compac);
-    free(nome_arq_final);
+    int posicao_resultado = 0;
+    uchar byte_atual = 0;
+    int bits_no_byte_atual = 0;
+
+    int tamanho = strlen((char *)code);
+    for (int i = 0; i < tamanho; i++) {
+        byte_atual |= (code[i] & 0x01) << (8 - 1 - bits_no_byte_atual);
+        bits_no_byte_atual++;
+
+        if (bits_no_byte_atual == 8) {
+            resultado[posicao_resultado] = byte_atual;
+            posicao_resultado++;
+            byte_atual = 0;
+            bits_no_byte_atual = 0;
+        }
+    }
+
+    // Se houver bits restantes no último byte, preencha o byte e adicione-o ao resultado
+    if (bits_no_byte_atual > 0) {
+        resultado[posicao_resultado] = byte_atual;
+    }
+
+    return resultado;
 }

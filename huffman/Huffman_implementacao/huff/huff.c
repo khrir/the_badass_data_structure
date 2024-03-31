@@ -35,6 +35,7 @@ Node_prio *criar_huff_tree(Fila_prio *fila){
         new_node->right = right;
         adiciona_ordenado(fila, new_node);
     }
+    return fila->head;
 }
 
 /**

@@ -1,5 +1,6 @@
 #ifndef UTIL_H
 #define UTIL_H
+#define MAX_SIZE 256
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +19,8 @@ e retornando a posição do ponteiro que é o tamanho do arquivo
 
 */
 int tmn_arquivo(char *nome_arquivo);
+
+void free_dictionary(uchar **dictionary);
 
 /*
 Retorna uma string com o nome do arquivo digitado pelo usuario

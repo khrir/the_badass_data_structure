@@ -20,13 +20,19 @@ Fila_prio *criar_fila(){
  * @param frequencia 
  * @return void
  */
-void enfileirar(Fila_prio *fila, uchar byte, int frequencia){
-    Node_prio *new_node = (Node_prio*)malloc(sizeof(Node_prio));
-    new_node->byte = byte;
-    new_node->frequencia = frequencia;
-    new_node->left = NULL;
-    new_node->right = NULL;
-    adiciona_ordenado(fila,new_node);
+void enfileirar(Fila_prio *list, ulli *frequencyTable) {
+    for(int i = 0; i < MAX_SIZE; i++){
+        if(frequencyTable[i] != 0){
+            Node_prio *node = (Node_prio *)malloc(sizeof(Node_prio));
+            node->byte = (uchar)i;
+            node->frequencia = frequencyTable[i];
+            node->left = NULL;
+            node->right = NULL;
+            node->next = NULL;
+
+            adiciona_ordenado(list, node);
+        }
+    }
 }
 
 /**
@@ -88,11 +94,16 @@ void enfila_huff(Fila_prio *fila, Node_prio *node){
  * @return Node_prio* 
  */
 
-Node_prio *desenfileirar(Fila_prio *fila){
-    if(fila->head == NULL) return NULL;
-    Node_prio *aux = fila->head;
-    fila->head = fila->head->next;
-    aux->next = NULL;
+Node_prio *desenfileirar(Fila_prio *list){
+    Node_prio *aux = NULL;
+
+    if(list->current_size > 0){
+        aux = list->head;
+        list->head = list->head->next;
+        aux->next = NULL;
+        list->current_size--;
+    }
+
     return aux;
 }
 

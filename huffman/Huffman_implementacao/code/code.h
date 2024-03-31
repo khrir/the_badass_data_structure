@@ -13,11 +13,17 @@ typedef struct Node_lista{
 
 //PRECISA COMENTAAAAAAAAAAAAAAR
 
-int calculate_altura(Node_prio root);
+int calculate_altura(Node_prio *root);
+
+int calculate_string_size(uchar **dictionary, uchar *text);
 
 uchar **create_dictionary(int columns);
 
 void fill_dictionary(Node_prio *root, uchar **dictionary, uchar *path, int columns);
+
+uchar *file_to_string(char *fileName);
+
+uchar *codifica(uchar **dictionary, uchar *text);
 
 /*
 Cria um novo no de uma lista
@@ -71,7 +77,7 @@ Calcula o lixo que vai ser adicionado no arquivo
 @param nome_arquivo: nome do arquivo que vai ser comprimido
 
 */
-int calc_lixo(char *nome_arquivo);
+int calc_lixo(uchar *code);
 
 void tamanho_extensao_arquivo(char *nome_arquivo, char *nome_arquivo_final);
 /*
@@ -92,7 +98,8 @@ Junta todas as funções de codificação para codificar e salvar o arquivo
 @param fila: fila de prioridade
 
 */
-void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila);
+void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila, uchar *code);
 
+uchar *agrupar_bits(uchar *code);
 
 #endif
