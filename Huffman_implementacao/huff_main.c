@@ -31,9 +31,6 @@ int main(){
                     puts("");
                     puts("Arquivo comprimido com sucesso e salvo no diretorio do programa.");
                     puts("");
-                    puts("E VAI CORINTHIANS!");
-                    print_art1();
-                    puts("");
                     puts("Pressione Enter para continuar.");
                     if(getchar() == 10) limpar_tela();
                 break;
@@ -49,9 +46,9 @@ int main(){
                     if(getchar() == 10) limpar_tela();
                 break;
             case 3:
-                print_art2();
                 puts("");
-                puts("VAI EMBORA NE? TMJ");                
+                puts("Obrigado por usar o programa!");      
+                puts("");         
                 puts("Pressione enter para sair.");
                 if(getchar() == 10){
                     exit(0);

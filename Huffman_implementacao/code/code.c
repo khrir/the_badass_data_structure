@@ -181,7 +181,7 @@ void salvar_no_arquivo(char *nome_arquivo, int tmn_arvore, Fila_prio *fila){
     puts("Arvore salva no arquivo!");
 
     tamanho_extensao_arquivo(nome_arquivo, nome_arq_final);
-    puts("Tamanho da extensão do arquivo escrita!");
+    puts("Tamanho da extensao do arquivo escrita!");
 
     fclose(arq_final);
 
