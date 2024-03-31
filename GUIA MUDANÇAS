@@ -1,0 +1,32 @@
+PASSO A PASSO DAS MUDANÇAS
+
+1) Adicionei o current_size==0 na hora de criar o nó (ta no codigo do kaka, lembrar de entender direitinho a usabilidade!)
+
+2) Alterei o arquivo inteiro de frequência da seguinte forma:
+  2.1) criar_freq ---> create_frequency_table
+  2.2) contar_freq ---> fill_frequency_table
+
+3) Adicionei também novafp->current_size==0 na criar_fila
+
+4) Em enfileirar, tirei metade da função e dividi em enfileirar e adiciona_ordenada (seguindo a lógica do kaka)
+
+5) create_huff_tree ta ok
+
+6) enfila_huff ---> adiciona_ordenada (pensei que nao vai haver problema em ser a mesma função, caso tenha, corrijam o quanto antes!)
+
+** ATENÇÃO: fiquei em dúvida em relação a remove_initial_node (código do kaka) e desenfileirar (codigo do gustavo), se forem a mesma coisa, a presença de
+desenfileira não precisa ser alterada
+
+
+7) Adicionei a função que calcula a altura da arvore em code.c e mudei a função de create_huff_tree para retornar o ponteiro para a raiz
+
+8) Adicionei a função create_dictionary
+
+9) Adicionei a função fill_dictionary
+
+
+
+Falta substituir as funções de lista e gerar caminho pelo dicionário para continuar os testes
+Boa parte do arquivo code.c será apagado seguindo essa lógica
+Só falta implementar cerca de 7 funções do kaka! :)
+
