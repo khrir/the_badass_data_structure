@@ -15,13 +15,17 @@ void ler_cabecalho(FILE *arq_comprimido, uchar *cabecalho, int *tmn_lixo, ulli *
     cabecalho[1] = fgetc(arq_comprimido);
 
     uchar lixinho = cabecalho[0] >> 5;
-    memcpy(tmn_lixo, &lixinho, sizeof(uchar));
+    printf("Valor de lixinho 1: %d\n", lixinho);
+    *tmn_lixo = lixinho;
+    printf("Valor de lixinho 2: %d\n", lixinho);
+    printf("Valor tamanho lixo: %d\n", *tmn_lixo);
 
     cabecalho[0] = cabecalho[0] << 3;
     cabecalho[0] = cabecalho[0] >> 3;
 
     ulli arvore = ((ulli)cabecalho[0] << 5) | cabecalho[1]; 
     memcpy(tmn_arvore, &arvore, sizeof(ulli));
+    printf("Tamanho da arvore: %lld\n", *tmn_arvore);
 }
 
 /**
@@ -38,6 +42,7 @@ void escr_bytes_descomp(FILE *arq_comprimido, Node_prio *arvore, int tmn_lixo, F
     uchar byte, byte_aux;
     int cont_bit = 7;
     byte = fgetc(arq_comprimido);
+    printf("TAMANHO DO LIXO: %d\n", tmn_lixo);
     while(!feof(arq_comprimido)){
         byte_aux = fgetc(arq_comprimido);
         if(!feof(arq_comprimido)){
@@ -52,7 +57,7 @@ void escr_bytes_descomp(FILE *arq_comprimido, Node_prio *arvore, int tmn_lixo, F
             }
         }
         else{
-            while(cont_bit >=(tmn_lixo - 1)){
+            while(cont_bit >= (tmn_lixo - 1)){
                 if(encontrar_folhas(node_atual)){
                     fputc(node_atual->byte, arq_descomprimido);
                     node_atual = arvore;
@@ -80,6 +85,14 @@ void ignorar_bytes(FILE *arquivo) {
     fseek(arquivo, lixo, SEEK_CUR);
 }
 
+void imprimir_arvore(Node_prio *raiz) {
+    if (raiz != NULL) {
+        printf("%c ", raiz->byte); // Supondo que cada nó contenha um caractere
+        imprimir_arvore(raiz->left);
+        imprimir_arvore(raiz->right);
+    }
+}
+
 /**
  * @brief Decompress the file
  * 
@@ -94,9 +107,12 @@ void descomprimir(char *arq_comprmido){
 
     FILE *arq_comp = fopen(arq_comprmido, "rb");
     ler_cabecalho(arq_comp, cabecalho, &tmn_lixo, &tmn_arvore);
+    printf("Tamanho do lixo pós cabeçalho: %d\n", tmn_lixo);
+    printf("Tamanho do da arvore pós cabeçalho: %lld\n", tmn_arvore);
 
     Node_prio *arvore = NULL;
     arvore = construir_huff_from_file(arq_comp, arvore, &tmn_arvore);
+    imprimir_arvore(arvore);
 
     ignorar_bytes(arq_comp); // Chama a função para ignorar os bytes conforme especificado
 
