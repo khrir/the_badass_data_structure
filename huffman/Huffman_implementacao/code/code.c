@@ -5,8 +5,8 @@ int calculate_altura(Node_prio *root) {
 
     if(root == NULL) return 0;
 
-    left_height = calculate_tree_height(root->left) + 1;
-    right_height = calculate_tree_height(root->right) + 1;
+    left_height = calculate_altura(root->left) + 1;
+    right_height = calculate_altura(root->right) + 1;
 
     return (left_height > right_height) ? left_height : right_height;
 }

@@ -24,7 +24,7 @@ void comprimir(char *nome_arquivo){
     Node_prio *root = criar_huff_tree(fila);
     ulli tamanho_arvore = 0;
     tamanho_huff_tree(fila->head, &tamanho_arvore);
-    int colunas=calcula_altura(root)+1;
+    int colunas = calculate_altura(root)+1;
     uchar **dictionary = create_dictionary(colunas);
     
 

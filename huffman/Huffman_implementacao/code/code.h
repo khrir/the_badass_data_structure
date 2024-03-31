@@ -13,7 +13,7 @@ typedef struct Node_lista{
 
 //PRECISA COMENTAAAAAAAAAAAAAAR
 
-int calculate_altura(Node_prio root);
+int calculate_altura(Node_prio *root);
 
 uchar **create_dictionary(int columns);
 
