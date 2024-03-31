@@ -15,13 +15,13 @@ void ler_cabecalho(FILE *arq_comprimido, uchar *cabecalho, int *tmn_lixo, ulli *
     cabecalho[1] = fgetc(arq_comprimido);
 
     uchar lixinho = cabecalho[0] >> 5;
-    memcpy(tmn_lixo, &lixinho, 0);
+    memcpy(tmn_lixo, &lixinho, sizeof(uchar));
 
     cabecalho[0] = cabecalho[0] << 3;
     cabecalho[0] = cabecalho[0] >> 3;
 
-    ulli avore = (cabecalho[1] << 5) | cabecalho[1]; 
-    memcpy(tmn_arvore, &avore, 2);
+    ulli arvore = ((ulli)cabecalho[0] << 5) | cabecalho[1]; 
+    memcpy(tmn_arvore, &arvore, sizeof(ulli));
 }
 
 /**
@@ -68,15 +68,16 @@ void escr_bytes_descomp(FILE *arq_comprimido, Node_prio *arvore, int tmn_lixo, F
     fclose(arq_descomprimido);
 }
 
-void ignorar_bytes(FILE *arquivo, int *lixo) {
+void ignorar_bytes(FILE *arquivo) {
+    int lixo;
     unsigned char byte;
     fread(&byte, sizeof(unsigned char), 1, arquivo);
 
     // Extrair o número de bytes a serem ignorados dos 3 bits mais significativos
-    *lixo = (byte >> 5) & 0x07;
+    lixo = (byte >> 5) & 0x07;
 
     // Ignorar os bytes especificados
-    fseek(arquivo, *lixo, SEEK_CUR);
+    fseek(arquivo, lixo, SEEK_CUR);
 }
 
 /**
@@ -97,7 +98,7 @@ void descomprimir(char *arq_comprmido){
     Node_prio *arvore = NULL;
     arvore = construir_huff_from_file(arq_comp, arvore, &tmn_arvore);
 
-    ignorar_bytes(arq_comp, &tmn_lixo); // Chama a função para ignorar os bytes conforme especificado
+    ignorar_bytes(arq_comp); // Chama a função para ignorar os bytes conforme especificado
 
     char nome_arq_descomprimido[strlen(arq_comprmido)];
     strcpy(nome_arq_descomprimido, arq_comprmido);
